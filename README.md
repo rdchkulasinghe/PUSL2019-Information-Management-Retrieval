@@ -9,6 +9,3 @@
 <h1>Future Enhancements</h1>
 <h2>Additional Notes</h2>
 <h2>Group Members</h2>
-<a href="[(https://github.com/rdchkulasinghe/PUSL2019-Information-Management-Retrieval)-README-Template/graphs/contributors">
-  <img src="[https://contrib.rocks/image?repo=othneildrew/Best](https://github.com/rdchkulasinghe/PUSL2019-Information-Management-Retrieval)-README-Template" alt="contrib.rocks image" />
-</a>
