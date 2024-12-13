@@ -1,3 +1,4 @@
+/*ver-02*/
 /*Create database---rename it*/
 CREATE DATABASE pos_test22;
 /*use database*/
@@ -59,7 +60,7 @@ INSERT INTO transaction_details (transaction_id,customer_id, payment_method)
 VALUES (103, 3, 'card');
        
 SELECT*FROM transaction_details ;
-/*8.product*/
+/*5.product*/
 CREATE TABLE product_info (
 	product_id INTEGER NOT NULL,
 	product_name VARCHAR(50) NOT NULL,
@@ -72,7 +73,7 @@ INSERT INTO product_info VALUES (111,'cow-milk', 200.05, '12-03-2026');
 
 SELECT * FROM product_info;
 
-/*5.recepit-details------goods-price-recording*/
+/*6.recepit-details------goods-price-recording*/
 CREATE TABLE recipt_details (
     receipt_id INTEGER NOT NULL IDENTITY(0,1),
     transaction_id INT NOT NULL,
@@ -85,7 +86,7 @@ CREATE TABLE recipt_details (
 	FOREIGN KEY (product_id) REFERENCES product_info(product_id)	
 );
 SELECT * FROM recipt_details;
-/*6.recipt---customer-final*/
+/*7.recipt---customer-final*/
 
 CREATE TABLE receipt (
 	/*recipt_id INTEGER NOT NULL DEFAULT 'R0001',trigger*/
@@ -99,7 +100,7 @@ CREATE TABLE receipt (
 	);
 select * from receipt;/*trigger for update from transaction table*/
 
-/*7.purchaseHistory*/
+/*8.purchaseHistory*/
 CREATE TABLE purchase_history (
 	purchase_id INTEGER NOT NULL,
 	customer_id INTEGER NOT NULL,
