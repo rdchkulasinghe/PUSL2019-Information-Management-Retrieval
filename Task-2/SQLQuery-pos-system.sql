@@ -74,7 +74,7 @@ INSERT INTO product_info VALUES (111,'cow-milk', 200.05, '12-03-2026');
 SELECT * FROM product_info;
 
 /*6.recepit-details------goods-price-recording*/
-CREATE TABLE recipt_details (
+CREATE TABLE receipt_details (
     receipt_id INTEGER NOT NULL IDENTITY(0,1),
     transaction_id INT NOT NULL,
     product_id INT NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE recipt_details (
     ON UPDATE CASCADE,
 	FOREIGN KEY (product_id) REFERENCES product_info(product_id)	
 );
-SELECT * FROM recipt_details;
+SELECT * FROM receipt_details;
 /*7.recipt---customer-final*/
 
 CREATE TABLE receipt (
