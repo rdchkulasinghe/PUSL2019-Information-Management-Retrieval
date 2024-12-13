@@ -2,7 +2,7 @@
 - Course: PUSL2019 - Information Management and Retrieval
 - Year: 2nd Year, 1st Semester
 ## Project Overview
-<p>This project aims to develop a robust database system for a supermarket using Microsoft SQL Server. The system will facilitate the management of customers, stock, discounts, sales, and generate insightful reports to aid in strategic decision-making.</p>
+- <p>This project aims to develop a robust database system for a supermarket using Microsoft SQL Server. The system will facilitate the management of customers, stock, discounts, sales, and generate insightful reports to aid in strategic decision-making.</p>
 ## Implementation
 <p>The database is implemented using Microsoft SQL Server</p>
 <h3>Key Features</h3>
