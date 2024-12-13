@@ -8,3 +8,7 @@
 <h1>Key Features</h1>
 <h1>Future Enhancements</h1>
 <h2>Additional Notes</h2>
+<h2>Group Members</h2>
+* [Member 1] ([(https://github.com/rdchkulasinghe)])
+* [Member 2 Name] ([GitHub Profile Link])
+* ...
