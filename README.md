@@ -9,6 +9,6 @@
 <h1>Future Enhancements</h1>
 <h2>Additional Notes</h2>
 <h2>Group Members</h2>
-* [Member 1] ([https://github.com/rdchkulasinghe](https://avatars.githubusercontent.com/u/140293329?v=4))
+* [Member 1] (https://avatars.githubusercontent.com/u/140293329?v=4)
 * [Member 2 Name] ([GitHub Profile Link])
 * ...
