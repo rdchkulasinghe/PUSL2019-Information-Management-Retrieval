@@ -3,7 +3,6 @@
 - Year: 2nd Year, 1st Semester
 <h1>Project Overview</h1>
 <p>This project aims to develop a robust database system for a supermarket using Microsoft SQL Server. The system will facilitate the management of customers, stock, discounts, sales, and generate insightful reports to aid in strategic decision-making.</p>
-<br>
 <h1>Implementation</h1>
 <p>The database is implemented using Microsoft SQL Server</p>
 <h1>Key Features</h1>
