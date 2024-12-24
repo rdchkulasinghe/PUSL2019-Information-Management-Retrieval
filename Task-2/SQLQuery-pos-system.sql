@@ -5,7 +5,7 @@ CREATE DATABASE pos_test22;
 USE pos_test22;
 
 /*create tables-----*/
-/*1.custemer*/
+/*1.user*/
 CREATE TABLE user_details (
 	userID INTEGER NOT NULL,
 	userName VARCHAR(30) NOT NULL,
