@@ -330,4 +330,79 @@ END //
 DELIMITER ;
 
 
-  
+  /*--------------------------- User defined functions ------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* function to return membership type of a customer */
+
+DELIMITER //
+CREATE FUNCTION Get_Membership_Type (cID INT) -- enter customerID
+RETURNS VARCHAR(15)
+DETERMINISTIC
+BEGIN
+    DECLARE membership VARCHAR(15);
+    SELECT membershipType INTO membership
+    FROM Loyalty
+    WHERE customerID = cID;
+    RETURN membership;
+END //
+DELIMITER ;
+-- result
+SELECT Get_Membership_Type(1001);
+
+
+
+/* total amount spend by customer*/
+DELIMITER //
+CREATE FUNCTION Calculate_Total_Sales (cID INT) -- enter customerID
+RETURNS DECIMAL(10, 2)
+DETERMINISTIC
+BEGIN
+    DECLARE total_sales DECIMAL(10, 2);
+    SELECT SUM(totalAmount) INTO total_sales
+    FROM Receipt
+    WHERE transactionID IN (SELECT transactionID FROM Transactions WHERE customerID = cID);
+    RETURN IFNULL(total_sales, 0);
+END //
+
+DELIMITER ;
+-- result
+SELECT Calculate_Total_Sales(1001);
+
+/* get customer purchase history*/
+DELIMITER //
+CREATE FUNCTION Customer_Purchase_History(cID INT) -- enter customerID
+RETURNS TEXT
+DETERMINISTIC
+BEGIN
+    DECLARE purchase_history TEXT;
+    SELECT GROUP_CONCAT(purchaseDetails SEPARATOR '; ')
+    INTO purchase_history
+    FROM Purchase_History
+    WHERE customerID = cID;
+
+    RETURN IFNULL(purchase_history, 'No purchases found');
+END //
+
+DELIMITER ;
+-- result
+SELECT Customer_Purchase_History(1001);
+
+
+/* Check available stock for specific product*/
+DELIMITER //
+CREATE FUNCTION Check_Product_Stock(pID INT) -- enter productID
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE available_stock INT;
+    SELECT quantity INTO available_stock
+    FROM Stock
+    WHERE productID = pID;
+
+    RETURN IFNULL(available_stock, 0);
+END //
+
+DELIMITER ;
+-- result
+SELECT Check_Product_Stock(1002);
