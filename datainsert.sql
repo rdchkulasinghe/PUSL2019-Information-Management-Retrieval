@@ -406,3 +406,44 @@ END //
 DELIMITER ;
 -- result
 SELECT Check_Product_Stock(1002);
+
+
+/*--------------------------- View ------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/*View customer transaction details*/
+CREATE VIEW Customer_Transaction_Details AS
+SELECT c.customerID, c.name, t.transactionID, t.date, t.paymentMethod
+FROM customers c
+JOIN Transactions t ON c.customerID = t.customerID;
+
+-- view output
+select * from Customer_Transaction_Details;
+
+/* view product details and stock*/
+CREATE VIEW Stock_product AS
+SELECT p.productID, p.name, s.quantity, s.price, p.expiryDate
+FROM Product p
+JOIN Stock s ON p.productID = s.productID;
+
+-- view output
+select * from Stock_product ;
+
+/* view transaction details with total amount and customer name*/
+CREATE VIEW Transaction_Customer_Details AS
+SELECT 
+    t.transactionID,
+    t.customerID,
+    c.name AS customerName,
+    t.date AS transactionDate,
+    t.paymentMethod,
+    r.totalAmount AS receiptTotal
+FROM 
+    Transactions t
+JOIN 
+    Receipt r ON t.transactionID = r.transactionID
+JOIN 
+    customers c ON t.customerID = c.customerID;
+    
+-- view output
+SELECT * FROM Transaction_Customer_Details;
