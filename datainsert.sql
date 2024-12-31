@@ -245,6 +245,89 @@ VALUES
   
 select * from purchase_order;
 
+/*--------------------------- Triggers------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* check if there is enough stock before adding a purchase order*/
+DELIMITER //
+
+CREATE TRIGGER Check_Stock
+BEFORE INSERT ON Purchase_Order
+FOR EACH ROW
+BEGIN
+    DECLARE current_stock INT;
+
+    SELECT quantity INTO current_stock
+    FROM Stock
+    WHERE productID = NEW.productID;
+
+    IF current_stock < NEW.quantity THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Insufficient stock for the order.';
+    END IF;
+END; //
+
+DELIMITER ;
+
+/* create a report whenever a discount period ends. */
+
+DELIMITER //
+CREATE TRIGGER Report_Discount_End
+AFTER UPDATE ON Discount
+FOR EACH ROW
+BEGIN
+    IF NEW.endDate < CURDATE() THEN
+        INSERT INTO Report (reportID, details, genaratedDay)
+        VALUES (NULL, CONCAT('Discount expired: ', NEW.details), CURDATE());
+    END IF;
+END; //
+
+DELIMITER ;
+
+/* Automatically reduces expired products from stock  */
+
+DELIMITER //
+CREATE TRIGGER Track_Product_Expiry
+AFTER UPDATE ON Product
+FOR EACH ROW
+BEGIN
+    IF NEW.expiryDate < CURDATE() THEN
+        UPDATE Stock
+        SET quantity = 0
+        WHERE productID = NEW.productID;
+    END IF;
+END;
+
+DELIMITER ;
+
+/* Update loyalty table after each transaction of customer (1 point for every 100 LKR) */ 
+
+DELIMITER //
+
+CREATE TRIGGER Update_Loyalty_Points
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    DECLARE total_spent DECIMAL(10, 2);
+    DECLARE points_to_add INT;
+
+    -- get the total amount from the Receipt table 
+    SELECT totalAmount INTO total_spent
+    FROM Receipt
+    WHERE transactionID = NEW.transactionID;
+
+    -- Calculate loyalty points (1 point for every 100 rupees)
+    SET points_to_add = FLOOR(total_spent / 100);
+
+    -- Update the Loyalty table to add points
+    IF NEW.customerID IS NOT NULL THEN
+        UPDATE Loyalty
+        SET points = points + points_to_add
+        WHERE customerID = NEW.customerID;
+    END IF;
+END //
+
+DELIMITER ;
 
 
   
